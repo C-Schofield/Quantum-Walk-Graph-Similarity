@@ -243,6 +243,7 @@ module Graph_Functions
         integer :: nEdges, edgeToDel, edgeCount, i, j, n
         logical :: isDeleted
 
+        ierr = 0
         n = size(A, 1)
         ! count the number of edges
         nEdges = I_Count_Edges(A, directed)
@@ -305,6 +306,7 @@ module Graph_Functions
         integer :: maxEdges, nEdges, edgeToAdd, edgeCount, i, j, n
         logical :: isAdded
 
+        ierr = 0
         weight = 1.d0
 
         ! Update weight if it is included
@@ -369,6 +371,7 @@ module Graph_Functions
         integer :: maxEdges, nEdges, edgeToAdd, edgeCount, i, j, n
         logical :: isAdded
 
+        ierr = 0
         n = size(A, 1)
         ! count the number of edges
         nEdges = I_Count_Edges(A, directed)

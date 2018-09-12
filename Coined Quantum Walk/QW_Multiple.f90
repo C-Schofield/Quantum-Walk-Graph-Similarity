@@ -194,7 +194,7 @@ contains
             ! Start timing
             call system_clock(start)
 
-            !call QW_Calc_Sim( AdjA, AdjB, sim, nPhase, nSteps, phi, eps)
+            call QW_Calc_Sim( AdjA, AdjB, sim, nPhase, nSteps, phi, eps)
 
             ! Finish timing
             call system_clock(finish)
@@ -211,7 +211,7 @@ contains
             write(10,'(A,F10.7,F10.7)')'theta, phi: ', phi(1,1), phi(1,2) 
             write(10,'(A,F15.10)')'eps: ', eps 
             write(10,*)NA_sim 
-            ! write(10,*)sim
+            write(10,*)sim
             flush(10)
 
         end do

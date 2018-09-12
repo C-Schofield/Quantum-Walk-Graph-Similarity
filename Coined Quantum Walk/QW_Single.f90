@@ -1,5 +1,5 @@
 program QW_Single
-
+    ! Author: Callum Schofield - 2017
     ! use Walk_Functions
     use data_types
     use NodeAffinity_Functions

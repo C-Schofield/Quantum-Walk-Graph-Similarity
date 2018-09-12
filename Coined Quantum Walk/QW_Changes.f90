@@ -57,7 +57,7 @@ contains
     subroutine init() 
         implicit none 
         integer :: i
-        real(8) :: offset
+        ! real(8) :: offset
         character(len=100) :: arg, file_parameters
         
         ! Check command line for inputs or parameter file
@@ -100,14 +100,19 @@ contains
         call init_random_seed()
         call omp_set_num_threads(nThreads)
         
-        offset = 0.1d0
+        ! offset = 0.1d0
 
         ! Create a list of random phases to use in each step
-        do i = 1, nSteps
-            call random_number(phi(i,:))
-            ! Scale random number between 0 and 2pi, to some offset (want to avoid 0, 2pi, ideally also multiples of pi/2 and pi)
-            phi(i,:) = phi(i,:)*((2-offset)*pi - offset) + offset
-        end do    
+        ! do i = 1, nSteps
+        !     call random_number(phi(i,:))
+        !     ! Scale random number between 0 and 2pi, to some offset (want to avoid 0, 2pi, ideally also multiples of pi/2 and pi)
+        !     phi(i,:) = phi(i,:)*((2-offset)*pi - offset) + offset
+        ! end do    
+
+        ! Phi is still set-up to allow varying phases for each step, however for consistency between iterations a constant phase should be applied
+        ! For optimisation sake, this should be reduced to a single value if the above functionality is deemed unsuitable
+        phi(:,1) = pi/2
+        phi(:,2) = 3*pi/2
 
         ! Code is currently only set up to work with 0, 1 or 2 phase additions, only '2' detects isomorphism 
         if( nPhase < 0 .or. nPhase > 2 ) then 
@@ -145,7 +150,7 @@ contains
             open(10, file=outFile, action='write')
             write(10,*)'The similarity values are output as such:'
             write(10,*)'1st column - number of changes'
-            write(10,*)'2nd column - % difference'
+            write(10,*)'2nd column - Percentage change in edges between the two graphs'
             write(10,*)'3rd column - NA Similarity'
             write(10,*)'4th-7th column - QW using sim = 1 / (1+dx) for d1-d4 below'
             write(10,*)'  d1 - prob1Norm + prob2Norm > eps = 1'
@@ -195,7 +200,6 @@ contains
             write(10,*)trim(adjustl(graph)), ' vs changes'
             write(10,'(A, 3I3)')'Number of steps; Number of phase additions; Number of threads: ', nSteps, nPhase, nThreads 
             write(10,'(A,F5.3)')'eps: ', eps 
-            
             do i = 1, numTest
                 
                 ! Loop over the number of trials to do at current edge number

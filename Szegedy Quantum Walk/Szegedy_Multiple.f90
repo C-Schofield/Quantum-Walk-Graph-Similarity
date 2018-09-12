@@ -1,6 +1,6 @@
 program Szegedy_Multiple
     ! Author: Callum Schofield - 2017
-    ! This code makes a number of changes to graphs to make comparisons
+    ! This code makes comparisons between given input graph pairs
     ! The code allows for MPI - however this would only be beneficial for a large number of graphs
     !   note that the first node only allocates computation to other nodes + receives results
     !
